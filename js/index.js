@@ -8,6 +8,7 @@ let taskCounter = 0;
 let taskName = ``;
 let checkboxValue = ``;
 let jsonData = [];
+let jsonObject = ``;
 
 taskInput.addEventListener("keypress",submitButton);
 addTaskBtn.addEventListener("click",addTask);
@@ -25,7 +26,7 @@ function addTask(){
   else{
     task = document.createElement("li");
     task.innerHTML = `
-    ${taskInput.value}
+    <span id="task-title-${counter}">${taskInput.value}</span>
     <input id=checkbox-${counter} type="checkbox">
     <button type="button" class="close" aria-label="Close">&times;</button>`;
     task.id = `task-${counter}`;
@@ -49,16 +50,17 @@ function saveTasks(){
   counter = 0;
   taskCounter = taskList.children.length;
   for(counter;counter<taskCounter;counter++){
-    taskName = document.getElementById(`task-${counter}`).innerText;
-    checkboxValue = document.getElementById(`checkbox-${counter}`).value;
-    jsonData += `
+    taskName = document.getElementById(`task-title-${counter}`).innerText;
+    checkboxValue = document.getElementById(`checkbox-${counter}`).checked;
+    jsonObject += `
     {
       "title" = "${taskName}",
       "done" = ${checkboxValue},
     }`;
   }
+  jsonData.push(jsonObject);
+  JSON.stringify(jsonData);
   console.log(jsonData);
+  jsonObject = ``;
   jsonData = [];
-  JSON.stringify(jsonData);;
-  
 }
