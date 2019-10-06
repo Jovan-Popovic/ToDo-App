@@ -52,12 +52,15 @@ function saveTasks(){
   for(counter;counter<taskCounter;counter++){
     taskName = document.getElementById(`task-title-${counter}`).innerText;
     checkboxValue = document.getElementById(`checkbox-${counter}`).checked;
-    jsonObject += `
-    {
-      "title" = "${taskName}",
-      "done" = ${checkboxValue},
-    }`;
+    jsonObject += {
+      "title":`${taskName}`,
+      "done":checkboxValue
+    };
+    if(counter < taskCounter-1){
+      jsonObject += ",";
+    }
   }
+  console.log(jsonObject);
   jsonData.push(jsonObject);
   JSON.stringify(jsonData);
   console.log(jsonData);
