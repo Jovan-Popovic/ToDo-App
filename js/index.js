@@ -7,8 +7,6 @@ let task = ``;
 let taskCounter = 0;
 let taskName = ``;
 let checkboxValue = ``;
-let jsonData = [];
-let jsonObject = ``;
 
 taskInput.addEventListener("keypress",submitButton);
 addTaskBtn.addEventListener("click",addTask);
@@ -46,24 +44,20 @@ function finishedTasks(e){
   }
 }
 
-function saveTasks(){
+function saveTasks(e){
+  e.preventDefault();
+  let jsonData = [];
   counter = 0;
   taskCounter = taskList.children.length;
   for(counter;counter<taskCounter;counter++){
     taskName = document.getElementById(`task-title-${counter}`).innerText;
     checkboxValue = document.getElementById(`checkbox-${counter}`).checked;
-    jsonObject += {
-      "title":`${taskName}`,
-      "done":checkboxValue
-    };
-    if(counter < taskCounter-1){
-      jsonObject += ",";
-    }
+    jsonData.push({title:taskName,done:checkboxValue});
   }
-  console.log(jsonObject);
-  jsonData.push(jsonObject);
-  JSON.stringify(jsonData);
-  console.log(jsonData);
-  jsonObject = ``;
-  jsonData = [];
+  fetch(/*link to myjson*/"https://api.myjson.com/bins/17cwoi",{
+    method:"POST",
+    body:JSON.stringify(jsonData)
+  })
+  .then(res => res.json())
+  .then((data) => console.log(data))
 }
