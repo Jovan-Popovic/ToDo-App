@@ -4,9 +4,11 @@ let addTaskBtn = document.getElementById("add-task-btn");
 let taskList = document.getElementById("task-list");
 let counter = 0;
 let task = ``;
-let taskCounter = 0;
 let taskName = ``;
 let checkboxValue = ``;
+let taskLenght = ``;
+
+localStorage.setItem("userTasks","https://api.myjson.com/bins/17cwoi");
 
 taskInput.addEventListener("keypress",submitButton);
 addTaskBtn.addEventListener("click",addTask);
@@ -19,7 +21,7 @@ function submitButton(e){
 
 function addTask(){
   if(taskInput.value === ""){
-    alert("Enter task first")
+    alert("Enter task first");
   }
   else{
     task = document.createElement("li");
@@ -48,16 +50,32 @@ function saveTasks(e){
   e.preventDefault();
   let jsonData = [];
   counter = 0;
-  taskCounter = taskList.children.length;
+  let taskCounter = taskList.children.length;
   for(counter;counter<taskCounter;counter++){
     taskName = document.getElementById(`task-title-${counter}`).innerText;
     checkboxValue = document.getElementById(`checkbox-${counter}`).checked;
     jsonData.push({title:taskName,done:checkboxValue});
   }
-  fetch(/*link to myjson*/"https://api.myjson.com/bins/17cwoi",{
+  fetch(/*link to myjson,not working*/"https://api.myjson.com/bins/17cwoi",{
     method:"POST",
     body:JSON.stringify(jsonData)
   })
   .then(res => res.json())
-  .then((data) => console.log(data))
+  .then((data) => console.log(data));
+}
+//load saved tasks,not finished
+if(localStorage.length > 0){
+  fetch(`${localStorage.getItem("userTasks")}`)
+  .then(res => res.json())
+  .then(data => {
+    console.log(data);
+    for(counter=0;counter<data.length;counter++){
+      taskList.innerHTML += `
+      <li class="list-group-item">
+        <span>${data[counter].title}</span>
+        <input type="checkbox">
+        <button type="button" class="close" aria-label="Close">&times;</button>
+      </li>`;
+    }
+  })
 }
