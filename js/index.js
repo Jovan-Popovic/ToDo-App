@@ -55,9 +55,14 @@ function saveTasks(e){
     taskName = document.getElementById(`task-title-${counter}`).innerText;
     checkboxValue = document.getElementById(`checkbox-${counter}`).checked;
     jsonData.push({title:taskName,done:checkboxValue});
+    console.log(jsonData);
   }
-  fetch(/*link to myjson,not working*/"https://api.myjson.com/bins/17cwoi",{
+  fetch(`${localStorage.getItem("userTasks")}`,{
     method:"POST",
+    headers: {
+      "Accept": "application/json, text/plain",
+      "Content-Type": "application/json, charset=utf-8"
+    },
     body:JSON.stringify(jsonData)
   })
   .then(res => res.json())
