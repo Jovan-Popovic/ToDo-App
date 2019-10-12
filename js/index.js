@@ -8,8 +8,6 @@ let taskName = ``;
 let checkboxValue = ``;
 let taskLenght = ``;
 
-localStorage.setItem("userTasks","https://api.myjson.com/bins/17cwoi");
-
 taskInput.addEventListener("keypress",submitButton);
 addTaskBtn.addEventListener("click",addTask);
 taskList.addEventListener("click",finishedTasks);
@@ -57,7 +55,7 @@ function saveTasks(e){
     jsonData.push({title:taskName,done:checkboxValue});
     console.log(jsonData);
   }
-  fetch(`${localStorage.getItem("userTasks")}`,{
+  fetch("https://api.myjson.com/bins",{
     method:"POST",
     headers: {
       "Accept": "application/json, text/plain",
@@ -65,9 +63,10 @@ function saveTasks(e){
     },
     body:JSON.stringify(jsonData)
   })
-  .then(res => res.json())
-  .then((data) => console.log(data));
-}
+  .then(res => res.json(),)
+  .then((data) => console.log(data))
+  .then(localStorage.setItem("userTasks",`${JSON.parse(res.json.uri)}`))
+}/*
 //load saved tasks,not finished
 if(localStorage.length > 0){
   fetch(`${localStorage.getItem("userTasks")}`)
@@ -83,4 +82,4 @@ if(localStorage.length > 0){
       </li>`;
     }
   })
-}
+}*/
