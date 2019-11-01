@@ -2,6 +2,9 @@
 let taskInput = document.getElementById("task-input");
 let addTaskBtn = document.getElementById("add-task-btn");
 let taskList = document.getElementById("task-list");
+let saveChanges = document.getElementById("save-changes");
+let clearFinished = document.getElementById("clear-completed");
+let clearAll = document.getElementById("clear-all");
 let counter = 0;
 let task = ``;
 let taskName = ``;
@@ -10,22 +13,24 @@ let taskLenght = ``;
 
 taskInput.addEventListener("keypress",submitButton);
 addTaskBtn.addEventListener("click",addTask);
-taskList.addEventListener("click",finishedTasks);
-document.getElementById("save-changes").addEventListener("click",saveTasks);
+taskList.addEventListener("click",taskInteraction);
+saveChanges.addEventListener("click",saveTasks);
+clearFinished.addEventListener("click",clearFinishedTasks);
+clearAll.addEventListener("click",clearAllTasks);
 
 function submitButton(e){
-    e.keyCode === 13 ? addTask() : null;
+  e.keyCode === 13 ? addTask() : null;
 }
 
 function addTask(){
-  if(taskInput.value === ""){
-    alert("Enter task first");
+  if(taskInput.value.length < 3){
+    alert("Task need to be long at least 3 characters");
   }
   else{
     task = document.createElement("li");
     task.innerHTML = `
-    <span id="task-title-${counter}">${taskInput.value}</span>
     <input id="checkbox-${counter}" type="checkbox">
+    <span id="task-title-${counter}">${taskInput.value}</span>
     <button type="button" class="close" aria-label="Close">&times;</button>`;
     task.id = `task-${counter}`;
     task.className += "list-group-item";
@@ -34,22 +39,23 @@ function addTask(){
   }
 }
 
-function finishedTasks(e){
+function taskInteraction(e){
   if(e.target.type === "checkbox"){
     e.target.parentElement.style.textDecoration = e.target.checked
     ? "line-through" : "none";
+    e.target.parentElement.style.color = e.target.checked 
+    ? "grey" : "black";
   }
   else if(e.target.tagName === "BUTTON"){
     taskList.removeChild(e.target.parentElement);
   }
 }
-
+//Save tasks
 function saveTasks(e){
   e.preventDefault();
   let jsonData = [];
-  counter = 0;
   let taskCounter = taskList.children.length;
-  for(counter;counter<=taskCounter;counter++){
+  for(counter=0;counter<=taskCounter;counter++){
     if(document.getElementById(`task-${counter}`) !== null){
       taskName = document.getElementById(`task-title-${counter}`).innerText;
       checkboxValue = document.getElementById(`checkbox-${counter}`).checked;
@@ -57,7 +63,7 @@ function saveTasks(e){
     }
   }
   fetch("https://api.myjson.com/bins",{
-    method:"POST",
+    method: "POST",
     headers: {
       "Accept": "application/json, text/plain",
       "Content-Type": "application/json, charset=utf-8"
@@ -69,18 +75,34 @@ function saveTasks(e){
     localStorage.setItem("userTasks", data.uri);
   })
 }
-//load saved tasks
+
 if(localStorage.getItem("userTasks") !== null){
   fetch(`${localStorage.getItem("userTasks")}`)
   .then(res => res.json())
   .then(data => {
-    for(counter=0;counter<data.length;counter++){
+    for(counter = 0;counter<data.length;counter++){
       taskList.innerHTML += `
-      <li id="task-${counter}" class="list-group-item">
+      <li id="task-${counter}" class="list-group-item ${data[counter].done === true ? "done" : null}">
+        <input id="checkbox-${counter}" type="checkbox" ${data[counter].done === true ? `checked` : null}>
         <span id="task-title-${counter}">${data[counter].title}</span>
-        <input id="checkbox-${counter}" type="checkbox" ${data[counter].done === true ? "checked" : null}>
         <button type="button" class="close" aria-label="Close">&times;</button>
       </li>`;
     }
+    document.getElementById("task-counter").innerHTML = counter;
   })
+}
+
+function clearFinishedTasks(){
+  for(counter=0;counter<taskList.childElementCount;counter++){
+    console.log(taskList.childElementCount);
+    if(document.getElementById(`task-${counter}`) !== null){
+      document.getElementById(`checkbox-${counter}`).checked === true 
+      ? taskList.removeChild(document.getElementById(`task-${counter}`)) : null;
+    }
+  }
+}
+
+function clearAllTasks(){
+  taskList.innerHTML = null;
+  counter = 0;
 }

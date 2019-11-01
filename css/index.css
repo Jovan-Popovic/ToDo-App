@@ -3,3 +3,8 @@
     margin: 0;
     font-family: 'PT Sans', sans-serif;
 }
+
+.list-group-item.done{
+    color: grey;
+    text-decoration: line-through;
+}
