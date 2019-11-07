@@ -12,14 +12,17 @@
 </head>
 <body>
     <div class="container">
-      <h2>You got <span id="task-counter"></span> things to do:</h2>
-      <input id="task-input" class="form-control" name="task" type="search" placeholder="Enter task here" aria-label="Search">
-      <button id="add-task-btn" type="button" class="btn btn-success">Add Task</button>
-      <ul id="task-list" class="list-group"></ul>
+      <h2 class="center">You got <span id="task-counter" class=""></span> things to do:</h2>
+      <div class="container row">
+        <input id="task-input" class="form-control col-12 col-lg-10" name="task" type="search" placeholder="Enter task here" aria-label="Search">
+        <button id="add-task-btn" type="button" class="btn btn-success">Add Task</button>        
+      </div>
+      <div class="container">
+        <ul id="task-list" class="list-group list-group-flush"></ul>
+      </div>
       <button id="save-changes" class="btn btn-primary">Save Changes</button>
-      <button id="clear-completed" class="btn btn-success">Clear completed tasks</button>
-      <button id="clear-all" class="btn btn-danger">Clear all</button>
-
+      <button id="clear-completed" class="btn btn-success">Clear Completed</button>
+      <button id="clear-all" class="btn btn-danger">Clear All</button>
     </div>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>

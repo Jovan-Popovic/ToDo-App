@@ -84,20 +84,24 @@ if(localStorage.getItem("userTasks") !== null){
       taskList.innerHTML += `
       <li id="task-${counter}" class="list-group-item ${data[counter].done === true ? "done" : null}">
         <input id="checkbox-${counter}" type="checkbox" ${data[counter].done === true ? `checked` : null}>
-        <span id="task-title-${counter}">${data[counter].title}</span>
+        <p id="task-title-${counter}" class="d-inline task">${data[counter].title}</p>
         <button type="button" class="close" aria-label="Close">&times;</button>
       </li>`;
     }
-    document.getElementById("task-counter").innerHTML = counter;
+    taskListLength();
   })
+}
+
+function taskListLength(){
+  requestAnimationFrame(taskListLength);
+  document.getElementById("task-counter").innerHTML = taskList.childElementCount;
 }
 
 function clearFinishedTasks(){
   for(counter=0;counter<taskList.childElementCount;counter++){
-    console.log(taskList.childElementCount);
     if(document.getElementById(`task-${counter}`) !== null){
       document.getElementById(`checkbox-${counter}`).checked === true 
-      ? taskList.removeChild(document.getElementById(`task-${counter}`)) : null;
+      ? document.getElementById(`task-${counter}`).remove() : console.log(`task-${counter} is unfinished`);
     }
   }
 }

@@ -8,3 +8,10 @@
     color: grey;
     text-decoration: line-through;
 }
+
+#task-list{
+    margin: 5px 0;
+}
+.task{
+    margin-left: 5px;
+}
