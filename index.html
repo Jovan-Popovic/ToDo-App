@@ -5,28 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.2.3/dist/css/uikit.min.css">
     <link rel="shortcut icon" href="images/to-do-list.png">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=PT+Sans&display=swap" rel="stylesheet">
     <title>ToDo App</title>
 </head>
 <body>
-    <div class="container">
-      <h2 class="center">You got <span id="task-counter" class=""></span> things to do:</h2>
-      <div class="container row">
-        <input id="task-input" class="form-control col-12 col-lg-10" name="task" type="search" placeholder="Enter task here" aria-label="Search">
-        <button id="add-task-btn" type="button" class="btn btn-success">Add Task</button>        
-      </div>
-      <div class="container">
-        <ul id="task-list" class="list-group list-group-flush"></ul>
-      </div>
-      <button id="save-changes" class="btn btn-primary">Save Changes</button>
-      <button id="clear-completed" class="btn btn-success">Clear Completed</button>
-      <button id="clear-all" class="btn btn-danger">Clear All</button>
+  <div class="container">
+    <h2 class="center">You got <span id="task-counter" class=""></span> things to do:</h2>
+    <div class="container row">
+      <input id="task-input" class="form-control col-12 col-lg-10" name="task" type="search" placeholder="Enter task here" aria-label="Search">
+      <button id="add-task-btn" type="button" class="btn btn-success">Add Task</button>        
     </div>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <script src="js/index.js"></script>
+    <ul id="task-list" class="uk-list uk-list-striped" uk-scrollspy="cls:uk-animation-slide-left; target: .list-group-item; delay: 200; repeat: true"></ul>
+    <button id="save-changes" class="btn btn-primary">Save Changes</button>
+    <button id="clear-completed" class="btn btn-success">Clear Completed</button>
+    <button id="clear-all" class="btn btn-danger">Clear All</button>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <script src="js/index.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/uikit@3.2.3/dist/js/uikit.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/uikit@3.2.3/dist/js/uikit-icons.min.js"></script>
 </body>
 </html>

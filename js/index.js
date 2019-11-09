@@ -29,8 +29,8 @@ function addTask(){
   else{
     task = document.createElement("li");
     task.innerHTML = `
-    <input id="checkbox-${counter}" type="checkbox">
-    <span id="task-title-${counter}">${taskInput.value}</span>
+    <input id="checkbox-${counter}" type="checkbox" class="uk-checkbox">
+    <p id="task-title-${counter}" class="d-inline task">${taskInput.value}</p>
     <button type="button" class="close" aria-label="Close">&times;</button>`;
     task.id = `task-${counter}`;
     task.className += "list-group-item";
@@ -82,8 +82,8 @@ if(localStorage.getItem("userTasks") !== null){
   .then(data => {
     for(counter = 0;counter<data.length;counter++){
       taskList.innerHTML += `
-      <li id="task-${counter}" class="list-group-item ${data[counter].done === true ? "done" : null}">
-        <input id="checkbox-${counter}" type="checkbox" ${data[counter].done === true ? `checked` : null}>
+      <li id="task-${counter}" class="list-group-item ${data[counter].done === true ? "done" : null}" uk-scrollspy="cls:uk-animation-slide-left">
+        <input id="checkbox-${counter}" type="checkbox" ${data[counter].done === true ? `checked` : null} class="uk-checkbox">
         <p id="task-title-${counter}" class="d-inline task">${data[counter].title}</p>
         <button type="button" class="close" aria-label="Close">&times;</button>
       </li>`;
