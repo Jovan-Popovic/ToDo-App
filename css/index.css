@@ -4,7 +4,7 @@
     font-family: 'PT Sans', sans-serif;
 }
 
-.list-group-item.done{
+.done{
     color: grey;
     text-decoration: line-through;
 }

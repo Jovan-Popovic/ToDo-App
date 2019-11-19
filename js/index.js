@@ -33,7 +33,7 @@ function addTask(){
     <p id="task-title-${counter}" class="d-inline task">${taskInput.value}</p>
     <button type="button" class="close" aria-label="Close">&times;</button>`;
     task.id = `task-${counter}`;
-    task.className += "list-group-item";
+    task.className = "task";
     taskList.appendChild(task);
     counter++;
   }
@@ -73,6 +73,10 @@ function saveTasks(e){
   .then(res => res.json())
   .then((data) => {
     localStorage.setItem("userTasks", data.uri);
+    UIkit.notification({
+      message: '<span uk-icon="check"></span> Your tasks are successfully saved',
+      status: 'primary'
+    });
   })
 }
 
@@ -82,7 +86,7 @@ if(localStorage.getItem("userTasks") !== null){
   .then(data => {
     for(counter = 0;counter<data.length;counter++){
       taskList.innerHTML += `
-      <li id="task-${counter}" class="list-group-item ${data[counter].done === true ? "done" : null}" uk-scrollspy="cls:uk-animation-slide-left">
+      <li id="task-${counter}" class="task ${data[counter].done === true ? "done" : ""}">
         <input id="checkbox-${counter}" type="checkbox" ${data[counter].done === true ? `checked` : null} class="uk-checkbox">
         <p id="task-title-${counter}" class="d-inline task">${data[counter].title}</p>
         <button type="button" class="close" aria-label="Close">&times;</button>
@@ -93,20 +97,29 @@ if(localStorage.getItem("userTasks") !== null){
 }
 
 function taskListLength(){
-  requestAnimationFrame(taskListLength);
   document.getElementById("task-counter").innerHTML = taskList.childElementCount;
+  requestAnimationFrame(taskListLength);
 }
 
 function clearFinishedTasks(){
-  for(counter=0;counter<taskList.childElementCount;counter++){
+  let taskNumber = taskList.childElementCount;
+  for(counter=0;counter<=taskNumber;counter++){
     if(document.getElementById(`task-${counter}`) !== null){
       document.getElementById(`checkbox-${counter}`).checked === true 
       ? document.getElementById(`task-${counter}`).remove() : console.log(`task-${counter} is unfinished`);
     }
   }
+  UIkit.notification({
+    message: '<span uk-icon="check"></span> You cleared all your finished tasks',
+    status: 'success'
+  });
 }
 
 function clearAllTasks(){
   taskList.innerHTML = null;
   counter = 0;
+  UIkit.notification({
+    message: '<span uk-icon="close"></span> You cleared all your tasks',
+    status: 'danger'
+  });
 }
