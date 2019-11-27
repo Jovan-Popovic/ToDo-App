@@ -5,11 +5,12 @@ const taskList = document.getElementById("task-list");
 const saveChanges = document.getElementById("save-changes");
 const clearFinished = document.getElementById("clear-completed");
 const clearAll = document.getElementById("clear-all");
+const taskCounter = document.getElementById("task-counter");
 
 let counter = 0;
-let task = ``;
-let taskName = ``;
-let checkboxValue = ``;
+let task = new String();
+let taskName = new String();
+let checkboxValue = new String();
 
 //Add all event listeners
 taskInput.addEventListener("keypress", submitButton);
@@ -106,7 +107,7 @@ if(localStorage.getItem("userTasks") !== null){
 
 //Showing how much tasks we have
 function taskListLength(){
-  document.getElementById("task-counter").innerHTML = taskList.childElementCount;
+  taskCounter.innerHTML = taskList.childElementCount;
   requestAnimationFrame(taskListLength);
 }
 
